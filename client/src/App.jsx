@@ -1,12 +1,11 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Home from './pages/Home';
 import ProtectedRoute from './Routes/ProtectedRoute';
 import PublicRoute from './Routes/PublicRoute';
-import ContactPage from './pages/ContactPage';
 import AddContactPage from './pages/AddContactPage';
 import EditContactPage from './pages/EditContactPage';
+import ContactTablePage from './pages/ContactTablePage';
 
 function App() {
 
@@ -14,11 +13,6 @@ function App() {
     <div className='app'>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          } />
           <Route path="/register" element={
             <PublicRoute>
               <Register />
@@ -29,9 +23,9 @@ function App() {
               <Login />
             </PublicRoute>
           } />
-          <Route path="/contacts/:id" element={
+          <Route path="/my-contacts/" element={
             <ProtectedRoute>
-              <ContactPage />
+              <ContactTablePage />
             </ProtectedRoute>
           } />
           <Route path="/add-contact" element={

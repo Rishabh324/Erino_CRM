@@ -39,7 +39,7 @@ const AddContact = () => {
       );
       if(response.data.status === "Success") {
         toast.success("Contact added successfully");
-        navigate('/');
+        navigate('/my-contacts');
       }
     } catch(err){
       toast.error("Failed to add contact");
@@ -76,7 +76,7 @@ const AddContact = () => {
           <input type='text' id='jobTitle' value={formData.jobTitle} placeholder='Enter job title' className='border-2 border-gray-300 rounded-lg p-2' onChange={handleInputChange} />
         </div>
         <div className='flex justify-center my-4'>
-          <button className='bg-blue-400 text-white px-4 py-2 rounded-lg' onClick={handleSubmit}>Create Car</button>
+          <button className='bg-blue-400 text-white px-4 py-2 rounded-lg' onClick={handleSubmit}>Create Contact</button>
         </div>
       </div>
     // </div>

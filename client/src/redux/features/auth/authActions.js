@@ -20,7 +20,7 @@ export const userLogin = createAsyncThunk(
             
             if (data.status == "Success") {
                 localStorage.setItem('token', data.token);
-                window.location.replace('/');
+                window.location.replace('/my-contacts');
                 toast.success(data.message);
             }
 
