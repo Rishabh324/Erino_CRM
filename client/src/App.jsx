@@ -13,7 +13,7 @@ function App() {
     <div className='app'>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={
+          <Route path="/:page" element={
             <ProtectedRoute>
               <ContactTablePage />
             </ProtectedRoute>

@@ -39,7 +39,7 @@ const AddContact = () => {
       );
       if(response.data.status === "Success") {
         toast.success("Contact added successfully");
-        navigate('/');
+        navigate('/1');
       }
     } catch(err){
       toast.error("Failed to add contact");

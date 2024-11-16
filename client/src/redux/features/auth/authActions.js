@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import API from "../../../services/API";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useParams } from "react-router-dom";
 
 export const userLogin = createAsyncThunk(
     'auth/login',
@@ -20,7 +21,7 @@ export const userLogin = createAsyncThunk(
             
             if (data.status == "Success") {
                 localStorage.setItem('token', data.token);
-                window.location.replace('/');
+                window.location.replace(`/1`);
                 toast.success(data.message);
             }
 

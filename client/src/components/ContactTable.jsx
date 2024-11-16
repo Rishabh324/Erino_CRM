@@ -12,12 +12,11 @@ const ContactTable = () => {
     const [contacts, setContacts] = useState([]);
     const { page } = useParams();
     const [currentPage, setCurrentPage] = useState(Number(page) || 1);
-    const dataPerPage = 7;
-    const firstIndex = (currentPage - 1) * dataPerPage;
-    let data = contacts;
+    const [totalPages, setTotalPages] = useState(1);
+    const dataPerPage = 9;
     const getContacts = async () => {
         try{
-            const response = await API.get('/contacts',
+            const response = await API.get(`/contacts/?page=${page}&limit=${dataPerPage}`,
             {
                 headers: {
                     'Access-Control-Allow-Origin': '*',
@@ -28,6 +27,7 @@ const ContactTable = () => {
             
             if(response.data.status==="Success"){
                 setContacts(response.data.data);
+                setTotalPages(Math.ceil(response.data.totalContacts / dataPerPage));
             }
         } catch(err){
             console.log(err);
@@ -35,19 +35,15 @@ const ContactTable = () => {
         }
     }
 
-    let totalPages = Math.ceil(contacts?.length / dataPerPage || 1);
-
-    data = data.slice(firstIndex, firstIndex + dataPerPage);
-
     const prePage = () => {
         if (currentPage > 1) {
-        navigate(`/page/${currentPage - 1}`);
+            navigate(`/${currentPage - 1}`);
         }
     };
 
     const nextPage = () => {
-        if (currentPage < totalPages) {
-        navigate(`/page/${currentPage + 1}`);
+        if (currentPage < totalPages+1) {
+            navigate(`/${currentPage + 1}`);
         }
     };
 
@@ -56,6 +52,9 @@ const ContactTable = () => {
           const response = await API.delete(`/contacts/${id}`);
           if(response.data.status === "Success") {
             toast.success("Contact deleted successfully");
+            getContacts();
+            if(contacts.length>1) navigate(`/${currentPage}`);
+            else navigate(`/${currentPage-1}`);
           } else{
             toast.error("Failed to delete contact");
           }
@@ -66,11 +65,8 @@ const ContactTable = () => {
 
     useEffect(() => {
         setCurrentPage(Number(page) || 1);
-    }, [page]);
-
-    useEffect(() => {
         getContacts();
-    },[]);
+    }, [page]);
 
     return (
         <div className='p-6'>
@@ -111,8 +107,8 @@ const ContactTable = () => {
                     </div>
 
                     <div className="bg-white">
-                        {data?.length > 0 ? (
-                        data?.map((item, id) => (
+                        {contacts?.length > 0 ? (
+                        contacts?.map((item, id) => (
                             <div
                             key={id}
                             className="border-2 border-gray-300 rounded-md my-2 py-2 bg-white shadow-sm"
@@ -140,57 +136,44 @@ const ContactTable = () => {
                         </div>
                         )}
                     </div>
-                    <div className="flex items-center p-4 rounded-lg bg-[#F6F6F6] justify-between w-full absolute bottom-2">
+                    <div className="flex items-center p-4 w-[98.8%] rounded-lg bg-[#F6F6F6] justify-between absolute bottom-2">
                         <div></div>
                         <div className="flex">
-                        <button
-                            className={`mr-2 border bg-white text-black px-4 py-2 rounded-md ${
-                                currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
-                            onClick={prePage}
-                            disabled={currentPage === 1}
-                        >
-                            <FaArrowLeft />
-                        </button>
-                        {[...Array(totalPages).keys()].map((pageIndex) => (
-                            <Link
-                            key={pageIndex}
-                            to={`/manage-branches/${pageIndex + 1}`}
-                            className={`${
-                                currentPage === pageIndex + 1
-                                    ? "bg-blue-500 text-white"
-                                    : "bg-white text-blue-500 hover:bg-blue-100"
-                                } px-4 py-2 rounded-md transition-colors mx-1`}
+                            <button
+                                className={`mr-2 border bg-white text-black px-4 py-2 rounded-md ${
+                                    currentPage === 1 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+                                }`}
+                                onClick={prePage}
+                                disabled={currentPage === 1}
                             >
-                            {pageIndex + 1}
-                            </Link>
-                        ))}
-                        <button
-                            className={`ml-2 border bg-white text-black px-4 py-2 rounded-md ${
-                                currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-                            }`}
-                            onClick={nextPage}
-                            disabled={currentPage === totalPages}
-                        >
-                            <FaArrowRight />
-                        </button>
-                        <div className="ml-6">
-                            <select
-                                className="border-2 border-gray-400 rounded-md p-2 w-20 text-center"
-                                value={currentPage}
-                                onChange={(e) => setCurrentPage(e.target.value)}
+                                <FaArrowLeft />
+                            </button>
+                            {[...Array(totalPages).keys()].map((pageIndex) => (
+                                <Link
+                                key={pageIndex}
+                                to={`/${pageIndex + 1}`}
+                                className={`${
+                                    currentPage === pageIndex + 1
+                                        ? "bg-blue-500 text-white"
+                                        : "bg-white text-blue-500 hover:bg-blue-100"
+                                    } px-4 py-2 rounded-md transition-colors mx-1`}
                                 >
-                                {[...Array(totalPages).keys()].map((pageIndex) => (
-                                    <option key={pageIndex} value={pageIndex + 1}>
-                                    {pageIndex + 1}
-                                    </option>
-                                ))}
-                                </select>
-                            </div>
+                                {pageIndex + 1}
+                                </Link>
+                            ))}
+                            <button
+                                className={`ml-2 border bg-white text-black px-4 py-2 rounded-md ${
+                                    currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                                }`}
+                                onClick={nextPage}
+                                disabled={currentPage === totalPages}
+                            >
+                                <FaArrowRight />
+                            </button>
                         </div>
                         <div className="text-center">
                             <p className="border-2 border-black p-2 bg-white rounded-md">
-                                Total Records: {data.length}
+                                Total Records: {contacts.length}
                             </p>
                         </div>
                     </div>

@@ -32,7 +32,7 @@ const EditContact = () => {
       );
       if(response.data.status === "Success") {
         toast.success("Contact edited successfully");
-        navigate('/');
+        navigate('/1');
       }
     } catch(err){
       toast.error("Failed to edit contact");

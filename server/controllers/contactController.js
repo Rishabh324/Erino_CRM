@@ -11,7 +11,12 @@ exports.getContacts = async (req,res) => {
             })
         }
 
-        const data = await contactsModel.find({ createdBy: user._id });
+        const page = parseInt(req.query.page) || 1;    // Default to page 1 if not provided
+        const limit = parseInt(req.query.limit) || 10; // Default to 10 items per page if not provided
+        const skip = (page - 1) * limit;
+
+        const data = await contactsModel.find({ createdBy: user._id }).skip(skip).limit(limit);        
+        const totalContacts = await contactsModel.countDocuments({ createdBy: user._id });
         res.status(200).json({
             status: "Success",
             message: "Contacts fetched successfully.",
@@ -20,8 +25,10 @@ exports.getContacts = async (req,res) => {
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type, Authorization'
             },
-            data
+            data,
+            totalContacts
         });
+
     } catch(err){
         res.status(500).json({
             status: "false",
