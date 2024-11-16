@@ -5,7 +5,7 @@ exports.getContacts = async (req,res) => {
     try{
         const user = await userModel.findOne({ _id: req.body.id});
         if(!user){
-            res.status(404).json({
+            res.status(401).json({
                 status: "false",
                 message: "unauthorized access."
             })
@@ -41,7 +41,7 @@ exports.addContact = async (req,res) => {
     try{
         const user = await userModel.find({ _id: req.body.id });
         if(!user){
-            res.status(404).json({
+            res.status(401).json({
                 status: "false",
                 message: "unauthorized access."
             })
@@ -71,7 +71,7 @@ exports.updateContact = async (req,res) => {
     try{
         const user = await userModel.find({ _id: req.body.id });
         if(!user){
-            res.status(404).json({
+            res.status(401).json({
                 status: "false",
                 message: "unauthorized access."
             })
@@ -81,7 +81,7 @@ exports.updateContact = async (req,res) => {
         const updateData = req.body;
 
         await contactsModel.findOneAndUpdate({ _id: id }, { $set: updateData });
-        res.status(200).json({
+        res.status(201).json({
             status: "Success",
             message: "Contact updated successfully.",
             headers:{
@@ -103,7 +103,7 @@ exports.deleteContact = async (req,res) => {
     try{
         const user = await userModel.find({ _id: req.body.id });
         if(!user){
-            res.status(404).json({
+            res.status(401).json({
                 status: "false",
                 message: "unauthorized access."
             })
@@ -112,7 +112,7 @@ exports.deleteContact = async (req,res) => {
         const { id } = req.params;
 
         await contactsModel.findOneAndDelete({ _id: id });
-        res.status(200).json({
+        res.status(202).json({
             status: "Success",
             message: "Contact deleted successfully.",
             headers:{

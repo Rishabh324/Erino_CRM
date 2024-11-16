@@ -19,7 +19,10 @@ const EditContact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
-      console.log(formData);
+      if(formData.firstName === '' || formData.lastName === '' || formData.email === '' || formData.phone === '' || formData.company === '' || formData.jobTitle === '') {
+        toast.error("Please fill all the fields");
+        return;
+      }
       const response = await API.put(`/contacts/${formData._id}`, 
         formData,
         {

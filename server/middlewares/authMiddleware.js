@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
             }
         })
     } catch(err){
-        res.status(400).json({
+        res.status(500).json({
             status: "failed",
             message: "error at authMiddlware.",
             error: err

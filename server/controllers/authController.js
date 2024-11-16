@@ -49,7 +49,7 @@ exports.loginController = async (req, res) => {
         //compare password
         const isPasswordCorrect = await bcrypt.compare(req.body.password, user.password);
         if (!isPasswordCorrect) {
-            return res.status(500).json({
+            return res.status(401).json({
                 status: "Failed",
                 message: "Invalid Credentials"
             })
@@ -66,7 +66,7 @@ exports.loginController = async (req, res) => {
     }
     catch (err) {
         console.log(err);
-        res.status(400).json({
+        res.status(500).json({
             status: "Process Terminated",
             message: "Failed at Login API",
             err

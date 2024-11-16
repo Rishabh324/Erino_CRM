@@ -15,6 +15,7 @@ export const handleLogin = (e, email, password) => {
 export const handleRegister = (e, email, name, password, phone) => {
     e.preventDefault();
     try {
+        if (!email || !name || !password || !phone) return alert("Provide All Fields.");
         store.dispatch(userRegister({ e, email, password, name, phone }));
     }
     catch (err) {

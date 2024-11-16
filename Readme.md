@@ -19,6 +19,14 @@ A modern web application that lets users add, view, update, and delete contact d
 
 The application is built using a Node.js backend with MongoDB for data storage and React for the frontend, making it responsive and capable of handling real-time updates to contact items.
 
+The reason for choosing Mongodb is that because:
+
+1. It is a NoSQL database that means it offers a flexible, schemaless design.
+2. CRM application often needs to handle diverse and varying data, and for that we need to handle semi-structured or unstructured data.
+3. MongoDB is built for horizontal scalability, which would be very useful in case of large number of users.
+4. The appliction here does not requires the use of complex JOIN queries.
+5. It naturally supports JSON data format useful for RESTAPIs
+
 ### Installation
 
 Step-1: Clone the github repository by running following command in terminal.
