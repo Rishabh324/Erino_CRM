@@ -13,6 +13,11 @@ function App() {
     <div className='app'>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={
+            <ProtectedRoute>
+              <ContactTablePage />
+            </ProtectedRoute>
+          } />
           <Route path="/register" element={
             <PublicRoute>
               <Register />
@@ -22,11 +27,6 @@ function App() {
             <PublicRoute>
               <Login />
             </PublicRoute>
-          } />
-          <Route path="/my-contacts/" element={
-            <ProtectedRoute>
-              <ContactTablePage />
-            </ProtectedRoute>
           } />
           <Route path="/add-contact" element={
             <ProtectedRoute>

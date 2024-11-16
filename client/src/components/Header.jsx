@@ -10,7 +10,7 @@ const Header = () => {
   }
   
   return (
-    <div className="bg-blue-400 font-bold w-[100vw] flex flex-row items-center justify-between p-4">
+    <div className="bg-blue-400 font-bold flex flex-row items-center justify-between p-4">
       <div>
         <h1 className="text-center text-3xl ">Erino&apos;s CRM</h1>
       </div>

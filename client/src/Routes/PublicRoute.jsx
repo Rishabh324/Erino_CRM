@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom'
 
 const PublicRoute = ({ children }) => {
-    if (localStorage.getItem('token')) return <Navigate to="/my-contacts"></Navigate>;
+    if (localStorage.getItem('token')) return <Navigate to="/"></Navigate>;
     else return children;
 }
 

@@ -4,7 +4,6 @@ const ScreenContext = createContext({});
 
 export const ScreenProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleResize = () => {
     setIsMobile(window.innerWidth < 748);
@@ -18,19 +17,11 @@ export const ScreenProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    setSidebarOpen(false);
-  }, [isMobile]);
-
-  const toggleSidebar = () => {
-    setSidebarOpen((prev) => !prev);
-  };
-
-  useEffect(() => {
     handleResize();
   }, []);
 
   return (
-    <ScreenContext.Provider value={{ isMobile, sidebarOpen, toggleSidebar }}>
+    <ScreenContext.Provider value={{ isMobile }}>
       {children}
     </ScreenContext.Provider>
   );
