@@ -31,7 +31,7 @@ Step-2: Now setup the frontend by adding a .env file with the following content 
 VITE_REACT_APP_BASEURL=http://localhost:5000/api
 ```
 
-Step-3 Now run the following command in you client folder.
+Step-3 Now run the following command on terminal in your client folder.
 ```
 npm install
 ```
@@ -52,7 +52,7 @@ JWT_SECRET = "CONTACTCRM"
 
 Now go to https://www.mongodb.com/ and create an account. Once account is created, you can create a database and a cluster inside the database. Then replace the DATABASE, DATABASE_PASSWORD, with the credentials of database you just created.
 
-Step-5 Now run the following command in you server folder.
+Step-5 Now run the following command on terminal in you server folder.
 ```
 npm install
 ```
