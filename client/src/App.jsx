@@ -13,6 +13,11 @@ function App() {
     <div className='app'>
       <BrowserRouter>
         <Routes>
+        <Route path="/" element={
+            <ProtectedRoute>
+              <ContactTablePage />
+            </ProtectedRoute>
+          } />
           <Route path="/:page" element={
             <ProtectedRoute>
               <ContactTablePage />
